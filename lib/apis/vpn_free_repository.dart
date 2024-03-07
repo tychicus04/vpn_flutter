@@ -85,7 +85,7 @@ class FreeServerRepository {
 
     final response = await http.get(
       Uri.parse(
-          'https://freevpn.ws/api.php?action=getaccess&type=free&sign=03f0cf46963762e7a6047a35fe9d67a8'),
+          'https://freevpn.ws/api.php?action=getaccess&type=free&sign=${md5Digest}'),
     );
 
     print("31: ${response.body}");

@@ -29,12 +29,14 @@ class Datum {
   final String? hostname;
   final String? region;
   final double? srvload;
+  final String? configuration;
 
   Datum({
     this.serverId,
     this.hostname,
     this.region,
     this.srvload,
+    this.configuration,
   });
 
   factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
@@ -45,13 +47,15 @@ class Datum {
         serverId: json["server_id"] ?? "",
         hostname: json["hostname"] ?? "",
         region: json["region"] ?? "",
-        srvload: double.parse((json['srvload'] ?? 0).toString()),
+        srvload: double.tryParse((json['srvload'] ?? 0).toString()),
+        configuration: json["configuration"],
       );
 
   Map<String, dynamic> toJson() => {
         "server_id": serverId,
         "hostname": hostname,
         "region": region,
-        "srvload": srvload
+        "srvload": srvload,
+        "configuration": configuration,
       };
 }

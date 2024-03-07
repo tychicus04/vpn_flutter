@@ -61,9 +61,8 @@ class _VpnCardState extends State<VpnCard> {
                 controller.getAccess();
                 controller.connectToFreeVpn();
               });
-            } else if(controller.vpnState.value == VpnEngine) {
-              }
-              else {
+            } else if (controller.vpnState.value == VpnEngine) {
+            } else {
               Pref.setCheck(false);
               controller.getAccess();
               controller.connectToFreeVpn();
@@ -99,20 +98,6 @@ class _VpnCardState extends State<VpnCard> {
                 // style: TextStyle(fontSize: 13))
               ],
             ),
-
-            //trailing
-            // trailing: Row(
-            //   mainAxisSize: MainAxisSize.min,
-            //   children: [
-            //     Text(vpn.toString(),
-            //         style: TextStyle(
-            //             fontSize: 13,
-            //             fontWeight: FontWeight.w500,
-            //             color: Theme.of(context).lightText)),
-            //     SizedBox(width: 4),
-            //     Icon(CupertinoIcons.location_solid, color: Colors.amber),
-            //   ],
-            // ),
           ),
         ));
   }
