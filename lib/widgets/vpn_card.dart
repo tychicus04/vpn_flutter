@@ -24,6 +24,8 @@ class VpnCard extends StatefulWidget {
 }
 
 String session_id = "";
+String username = "";
+String password = "";
 
 class _VpnCardState extends State<VpnCard> {
   @override
@@ -54,17 +56,20 @@ class _VpnCardState extends State<VpnCard> {
             MyDialogs.success(msg: 'Connecting VPN Location...');
 
             if (controller.vpnState.value == VpnEngine.vpnConnected) {
+              print(username);
               VpnEngine.stopVpn();
               Future.delayed(Duration(seconds: 2), () {
                 controller.killSession(session_id);
                 Pref.setCheck(false);
                 controller.getAccess();
+
                 controller.connectToFreeVpn();
               });
             } else if (controller.vpnState.value == VpnEngine) {
             } else {
               Pref.setCheck(false);
               controller.getAccess();
+
               controller.connectToFreeVpn();
             }
           },

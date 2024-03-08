@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eye_vpn_lite/apis/vpn_free_repository.dart';
+import 'package:eye_vpn_lite/models/get_access.dart';
 import 'package:eye_vpn_lite/models/vpn_free.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,15 +26,22 @@ class HomeController extends GetxController {
     }
 
     if (vpnState.value == VpnEngine.vpnDisconnected) {
-      print("ALO: ${vpnFree.value.configuration!}");
+      getAccess();
+      String? user;
+      String? pass;
+      Pref.getUserName().then((value) {
+        user = value;
+      });
+      Pref.getUserName().then((value) {
+        pass = value;
+      });
       final data = Base64Decoder().convert(vpnFree.value.configuration!);
       print("Check Config $data");
       final config = Utf8Decoder().convert(data);
-
       final vpnConfig = VpnConfig(
         country: vpnFree.value.region!,
-        username: 'vpn',
-        password: 'vpn',
+        username: '${user}',
+        password: '${pass}',
         config: config,
       );
       await VpnEngine.startVpn(vpnConfig);
@@ -44,6 +52,8 @@ class HomeController extends GetxController {
 
   Future<void> getAccess() async {
     await FreeServerRepository.getAccess();
+    // Pref.setUserName(message.user);
+    // Pref.setPass(message.password);
   }
 
   Future<void> killSession(String session_id) async {

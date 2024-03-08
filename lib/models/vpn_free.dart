@@ -29,11 +29,16 @@ class Datum {
   final String? hostname;
   final String? region;
   final double? srvload;
+  final String? cipher;
+  final String? auth;
+
   final String? configuration;
 
   Datum({
     this.serverId,
     this.hostname,
+    this.cipher,
+    this.auth,
     this.region,
     this.srvload,
     this.configuration,
@@ -46,6 +51,8 @@ class Datum {
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         serverId: json["server_id"] ?? "",
         hostname: json["hostname"] ?? "",
+        cipher: json["cipher"] ?? "",
+        auth: json["auth"] ?? "",
         region: json["region"] ?? "",
         srvload: double.tryParse((json['srvload'] ?? 0).toString()),
         configuration: json["configuration"],
@@ -54,6 +61,8 @@ class Datum {
   Map<String, dynamic> toJson() => {
         "server_id": serverId,
         "hostname": hostname,
+        "cipher": cipher,
+        "auth": auth,
         "region": region,
         "srvload": srvload,
         "configuration": configuration,

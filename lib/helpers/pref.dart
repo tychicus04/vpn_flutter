@@ -12,6 +12,8 @@ const sessionId = 'session id';
 const isShowDialog = 'is show dialog';
 const check = 'check';
 const status = 'status';
+const username = 'username';
+const pass = 'pass';
 
 class Pref {
   static Future<String> getUrl() async {
@@ -42,6 +44,26 @@ class Pref {
   static Future setSessionId(String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(sessionId, value);
+  }
+
+  static Future<String> getUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(username) ?? "";
+  }
+
+  static Future setUserName(String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString(username, value);
+  }
+
+  static Future<String> getPass() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(pass) ?? "";
+  }
+
+  static Future setPass(String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString(pass, value);
   }
 
   static Future<String> getHash() async {

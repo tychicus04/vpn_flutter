@@ -50,6 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool isShowDialog = false;
   String session_id = "";
+  String username = "";
+  String password = "";
   String hash_code = "";
   String status = "";
   String url = "";
@@ -310,6 +312,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Pref.setShowDialog(false);
                             Pref.setCheck(true);
                             _controller.getAccess();
+
                             _controller.connectToFreeVpn();
                           } else if (status == "fail") {}
                         },
@@ -375,6 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
               button: true,
               child: InkWell(
                 onTap: () {
+                  print(username);
                   if (_controller.vpnState.value == VpnEngine.vpnConnected) {
                     _controller.killSession(session_id);
                     _controller.getAccess();
@@ -382,6 +386,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   } else if (_controller.vpnState.value ==
                       VpnEngine.vpnDisconnected) {
                     _controller.getAccess();
+                    Pref.getUserName().then((value) {
+                      setState(() {
+                        username = value;
+                      });
+                    });
+
+                    Pref.getPass().then((value) {
+                      setState(() {
+                        password = value;
+                      });
+                    });
                     _controller.connectToFreeVpn();
                   }
                 },

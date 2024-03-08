@@ -58,7 +58,7 @@ class FreeServerRepository {
     }
   }
 
-  static Future<String> getAccess() async {
+  static Future<void> getAccess() async {
     String? ip_address;
 
     try {
@@ -91,10 +91,12 @@ class FreeServerRepository {
     print("31: ${response.body}");
 
     if (response.statusCode == 200) {
-      final String data = json.decode(response.body)['message']['session_id'];
-      print(data);
-      Pref.setSessionId(data);
-      return data;
+      final dynamic data = json.decode(response.body)['message'];
+      Message message = Message.fromJson(data);
+      print("DTA: ${message}");
+      Pref.setSessionId(message.sessionId);
+      Pref.setUserName(message.user);
+      Pref.setPass(message.password);
     } else {
       throw Exception('Failed to load data');
     }
